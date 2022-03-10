@@ -8,7 +8,7 @@
 - Authors 
 
 ## Description
-This project is an API for a Dessert Store App where you can register and logind users, create products,search products by category
+This project is an API for a Dessert Store App where you can register & login users, create products,search products by category.
 
 As an *MANAGER* user, you can create, uodate, delete and disable products, upload images per product and, show client orders.
 
@@ -28,7 +28,6 @@ Create a `.env` file using the `.env.example` file:
 PORT=port_where_the_app_is_running_at
 
 #DATABASE
-DB_HOST=your_db_host
 DB_USERNAME=your_db_username
 DB_PASS=your_db_password
 DB_NAME=your_db_name
@@ -60,6 +59,7 @@ $ npm run test
 - ESLint
 - REST 
 - Swagger
+- Typeorm
 ## Contributing
 ## Authors
 Maria del Carmen Luque Quispe
