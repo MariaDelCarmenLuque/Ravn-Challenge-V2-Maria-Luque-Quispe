@@ -2,7 +2,10 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedCol
 import { Role } from "./roles.enum";
 @Entity('users')
 export class User {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({
+        unsigned: true,
+        type: 'bigint',
+    })
     id: number;
 
     @Column({
@@ -15,7 +18,7 @@ export class User {
 
     @Column({
         name: 'first_name',
-        type: 'varchar',
+        type: 'character varying',
         length: 50,
         nullable: true,
     })
@@ -23,7 +26,7 @@ export class User {
     
     @Column({
         name: 'last_name',
-        type: 'varchar',
+        type: 'character varying',
         length: 50,
         nullable: true,
     })
@@ -31,7 +34,7 @@ export class User {
     
     @Column({
         name: 'phone',
-        type: 'varchar',
+        type: 'character varying',
         length: 50,
         nullable: true,
     })
@@ -39,7 +42,7 @@ export class User {
 
     @Column({
         name: 'email',
-        type: 'varchar',
+        type: 'character varying',
         length: 100,
         nullable: false,
     })
@@ -47,7 +50,7 @@ export class User {
 
     @Column({
         name: 'password',
-        type: 'varchar',
+        type: 'character varying',
         length: 100,
         nullable: false,
         select: false,
@@ -56,7 +59,7 @@ export class User {
     
     @Column({
         name: 'address',
-        type: 'varchar',
+        type: 'character varying',
         length: 200,
         nullable: true,
     })
@@ -64,7 +67,7 @@ export class User {
     
     @Column({
         name: 'gender',
-        type: 'varchar',
+        type: 'character varying',
         length: 15,
         nullable: true,
     })
@@ -72,28 +75,28 @@ export class User {
     
     @Column({
         name: 'birth_date',
-        type: 'timestamp',
+        type: 'timestamptz',
         nullable: true,
     })
     birthDate: Date;
 
     @CreateDateColumn({
         name: 'created_at',
-        type: 'timestamp',
+        type: 'timestamptz',
     })
     createdAt: Date;
 
     @UpdateDateColumn({
         name: 'updated_at',
-        type: 'timestamp',
+        type: 'timestamptz',
     })
     updatedAt: Date;
 
     @DeleteDateColumn({
         name: 'deleted_at',
-        type: 'timestamp',
+        type: 'timestamptz',
         default: null,
     })
-    deletedAt: Date;
+    deletedAt?: Date;
     
 }
