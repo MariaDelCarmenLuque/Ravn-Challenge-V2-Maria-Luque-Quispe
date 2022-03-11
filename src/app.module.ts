@@ -3,6 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import 'dotenv/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -17,6 +20,9 @@ import { AppService } from './app.service';
       synchronize: true,
       autoLoadEntities: true,
     }),
+    UsersModule,
+    ProductsModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],
