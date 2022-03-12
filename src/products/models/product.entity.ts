@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Category } from "./category.entity";
 
-@Entity('items')
+@Entity('products')
 export class Product {
     @PrimaryGeneratedColumn({
         unsigned: true,
@@ -56,7 +57,12 @@ export class Product {
       })
     deletedAt?: Date;
 
+
     // RELATIONS
     // cart
-    // categories
+    @ManyToOne(()=> Category)
+    @JoinColumn({
+        name: 'category_id',
+    })
+    category: Category;
 }
