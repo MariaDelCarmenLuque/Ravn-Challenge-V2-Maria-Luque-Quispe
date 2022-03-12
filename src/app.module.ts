@@ -9,7 +9,8 @@ import { CartModule } from './cart/cart.module';
 import { Product } from './products/models/product.entity';
 import { User } from './users/models/user.entity';
 import { Cart } from './cart/entity/cart.entity';
-import { Category } from './products/models/category.entity';
+import { Category } from './categories/category.entity';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { Category } from './products/models/category.entity';
     UsersModule,
     ProductsModule,
     CartModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
