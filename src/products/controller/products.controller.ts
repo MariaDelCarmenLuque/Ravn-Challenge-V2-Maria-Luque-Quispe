@@ -1,4 +1,4 @@
-import { Body, Controller, DefaultValuePipe, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Patch, Post, Query} from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, HttpCode, HttpException, HttpStatus, Param, ParseIntPipe, Patch, Post, Query} from '@nestjs/common';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { CreateProductDto } from '../models/create-product.dto';
 import { Product } from '../models/product.entity';
@@ -47,7 +47,13 @@ export class ProductsController {
 
     @Delete(':id')
     async delete(@Param('id') id:number){
-        return this.productsService.delete(id);
+        const product:Product = await this.productsService.findOne(id);
+        if(product){
+            await this.productsService.delete(id);
+        } else {
+            throw new HttpException('Product Not Found',HttpStatus.BAD_REQUEST);
+        }
+        return HttpStatus.OK;
     }
 
 }

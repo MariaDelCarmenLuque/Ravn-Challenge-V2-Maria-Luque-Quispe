@@ -16,11 +16,12 @@ export class ProductsService {
     async getAll(options: IPaginationOptions):Promise <Pagination<Product>>{
         return paginate<Product>(this.productsRepository, options);
     }
+
     async findOne(id:number):Promise<Product>{
         return this.productsRepository.findOne(id);
     }
-    create(product:CreateProductDto):Promise<Product>{
-        const newProduct:Product = this.productsRepository.create(product)
+    create(body:CreateProductDto):Promise<Product>{
+        const newProduct = this.productsRepository.create(body)
         return this.productsRepository.save(newProduct);
     }
 
