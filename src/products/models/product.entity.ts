@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Category } from "./category.entity";
+import { ProductStatus } from "./product-status.enum";
 
 @Entity('products')
 export class Product {
@@ -38,6 +39,13 @@ export class Product {
     description: string;
 
     @Column({
+        name: 'image_url',
+        type: 'character varying',
+        nullable: false,
+    })
+    imageUrl:string;
+
+    @Column({
         name: 'price',
         type: 'float',
         nullable: false,
@@ -50,6 +58,15 @@ export class Product {
         nullable: false,
     })
     stock: number;
+    
+    @Column({
+        name: 'status',
+        type: 'enum',
+        enum: ProductStatus,
+        default: ProductStatus.ACTIVE,
+      })
+      status: ProductStatus;
+    
 
     @DeleteDateColumn({
         name: 'deleted_at',
