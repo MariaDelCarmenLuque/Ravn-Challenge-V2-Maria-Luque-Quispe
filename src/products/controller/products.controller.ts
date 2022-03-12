@@ -1,4 +1,4 @@
-import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Patch, Post, Query} from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Patch, Post, Query} from '@nestjs/common';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { CreateProductDto } from '../models/create-product.dto';
 import { Product } from '../models/product.entity';
@@ -36,8 +36,13 @@ export class ProductsController {
     }
 
     @Patch(':id')
-    async update(@Param('id') id: number,@Body() updateProductDTO: UpdateProductDto): Promise<void>{
-        return await this.productsService.update(id,updateProductDTO);
+    async updateProductById(@Param('id') id: number,@Body() updateProductDTO: UpdateProductDto): Promise<void>{
+        const product:Product = await this.productsService.findOne(id);
+        if(product){
+            await this.productsService.update(id,updateProductDTO);
+        } else {
+            throw new HttpException('Product Not Found',HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Delete(':id')
