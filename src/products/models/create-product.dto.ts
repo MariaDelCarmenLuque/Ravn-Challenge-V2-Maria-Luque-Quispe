@@ -9,6 +9,10 @@ export class CreateProductDto {
     @Length(1,1000)
     description: string;
 
+    @IsString()
+    @Length(1,1000)
+    imageUrl: string;
+
     @IsNumber()
     @Min(1)
     @Max(1000000)
@@ -19,6 +23,8 @@ export class CreateProductDto {
     @Max(1000000)
     price: number;
 
-   //CategoryId
+    @IsNumber()
+    @Max(300)
+    categoryId: number;
    
 }
