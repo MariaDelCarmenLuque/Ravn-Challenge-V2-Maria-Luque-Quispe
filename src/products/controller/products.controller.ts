@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Patch, Post, Query} from '@nestjs/common';
+import { Pagination } from 'nestjs-typeorm-paginate';
 import { CreateProductDto } from '../models/create-product.dto';
 import { Product } from '../models/product.entity';
 import { UpdateProductDto } from '../models/update-product.dto';
@@ -11,10 +12,17 @@ export class ProductsController {
     ){}
 
 
-    @Get()
-    async findAll():Promise<Product[]>  {
-    
-        return this.productsService.getAll();
+    @Get('')
+    async findAll(
+        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+        @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+    ):Promise<Pagination<Product>>  {
+        limit = limit > 100 ? 100 : limit;
+        return this.productsService.getAll({
+            page,
+            limit,
+            route:'/products',
+        });
     }
 
     @Get(':id')
