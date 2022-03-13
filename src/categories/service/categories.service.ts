@@ -1,4 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
+import { Repository } from 'typeorm';
+import { Category } from '../category.entity';
 
 @Injectable()
-export class CategoriesService {}
+export class CategoriesService {
+    
+    constructor(
+        @InjectRepository(Category)
+        private readonly categoriesRepository:Repository<Category> 
+        ){}
+
+    async getAll(options: IPaginationOptions):Promise <Pagination<Category>>{
+        return paginate<Category>(this.categoriesRepository, options,{
+           select:['products','id','name'],
+            relations:['products'],
+        });
+    }
+
+    async findOne(id:number):Promise<Category>{
+        const category = this.categoriesRepository.findOne(id,{
+            where: {
+                id: id,
+            },
+            relations: ['products'],
+        });
+        if(!category){
+            throw new NotFoundException(`Category with id ${id} not found`);
+        }
+        return category;
+    }
+
+    create(body:Category):Promise<Category>{
+        const newCategory = this.categoriesRepository.create(body)
+        return this.categoriesRepository.save(newCategory);
+    }
+}
