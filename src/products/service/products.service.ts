@@ -14,7 +14,9 @@ export class ProductsService {
     ){}
 
     async getAll(options: IPaginationOptions):Promise <Pagination<Product>>{
-        return paginate<Product>(this.productsRepository, options);
+        return paginate<Product>(this.productsRepository, options,{
+            relations:['category'],
+        });
     }
 
     async findOne(id:number):Promise<Product>{
