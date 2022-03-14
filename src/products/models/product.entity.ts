@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Order } from "src/orders/models/orders.entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Category } from "../../categories/category.entity";
 import { ProductStatus } from "./product-status.enum";
 
@@ -76,7 +77,10 @@ export class Product {
 
 
     // RELATIONS
-    // cart
+    // order
+    @OneToMany(() => Order, (order) => order.cartId)
+    orders: Order[];
+    //-category
     @ManyToOne(()=> Category)
     @JoinColumn({
         name: 'category_id',
