@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from 'src/users/models/create-user.dto';
 import { User } from 'src/users/models/user.entity';
 import { UsersService } from 'src/users/service/users.service';
 
@@ -46,4 +47,25 @@ export class AuthService {
             access_token: this.jwtService.sign({...user}),
         };
     }
+    async checkEmail(user: CreateUserDto) {
+        const userExists = await this.usersService.findOneByEmail(
+          user.email.toLowerCase(),
+        );
+    
+        if (userExists) {
+          throw new HttpException(
+            'User is already registered',
+            HttpStatus.CONFLICT,
+          );
+        }
+      }
+    
+    async create(user: CreateUserDto): Promise<void> {
+
+        user.email = user.email.toLowerCase();
+        user.password = await bcrypt.hash(user.password, 10);
+
+        await this.usersService.create(user);
+    }
+    
 }
