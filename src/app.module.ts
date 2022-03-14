@@ -11,6 +11,7 @@ import { User } from './users/models/user.entity';
 import { Cart } from './cart/entity/cart.entity';
 import { Category } from './categories/category.entity';
 import { CategoriesModule } from './categories/categories.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { CategoriesModule } from './categories/categories.module';
     ProductsModule,
     CartModule,
     CategoriesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
