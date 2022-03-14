@@ -18,7 +18,16 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService){}
-   
+
+    @ApiOperation({
+        summary: 'Register a new user',
+      })
+    @ApiCreatedResponse({
+        description: 'The user has been successfully registered.',
+    })
+    @ApiBadRequestResponse({
+    description: 'One or more properties are missing or are wrong.',
+    })
     @Public()
     @Post('signUp')
     async register(@Body() user: CreateUserDto) {
@@ -27,6 +36,21 @@ export class AuthController {
         await this.authService.create(user);
     }
     
+    @ApiOperation({
+        summary: 'Log in',
+      })
+      @ApiCreatedResponse({
+        description: 'User logged.',
+        schema: {
+          example: {
+            accessToken:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDcyODc4MjZ9.YWBlLV34dv780eNHchXDf1lsSXYANf678ZfVN-D2dNU',
+          },
+        },
+      })
+      @ApiBadRequestResponse({
+        description: 'One or more properties are missing or are wrong.',
+      })
     @UseGuards(LocalAuthGuard)
     @Public()
     @Post('signIn')
