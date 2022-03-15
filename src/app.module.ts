@@ -12,6 +12,8 @@ import { Cart } from './cart/entity/cart.entity';
 import { Category } from './categories/category.entity';
 import { CategoriesModule } from './categories/categories.module';
 import { AuthModule } from './auth/auth.module';
+import { Order } from './orders/models/orders.entity';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
-      entities: [Product,User,Cart,Category],
+      entities: [Product,User,Cart,Category,Order],
       synchronize: true,
       autoLoadEntities: true,
     }),
@@ -31,6 +33,7 @@ import { AuthModule } from './auth/auth.module';
     CartModule,
     CategoriesModule,
     AuthModule,
+    OrdersModule
   ],
   controllers: [AppController],
   providers: [AppService],
