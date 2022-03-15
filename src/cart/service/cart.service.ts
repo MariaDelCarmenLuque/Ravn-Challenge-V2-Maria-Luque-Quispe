@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/models/user.entity';
 import { Repository } from 'typeorm';
 import { Cart } from '../entity/cart.entity';
 
@@ -11,6 +12,41 @@ export class CartService {
 
     async findAll(): Promise<Cart[]> {
       
-        return this.cartRepository.find();
-      }
+        return this.cartRepository.find({
+          relations: ['orders'],
+        });
+    }
+
+    async findAllForClient(userId:number): Promise<Cart[]> {
+
+      return this.cartRepository.find({
+        relations: ['orders'],
+        where: {user:userId}
+      });
+  }
+    async findCartForUser(cartId:number,userId: number): Promise<Cart> {
+      const cart = await this.cartRepository.findOne({
+        where: { user: { id: userId },id:cartId },
+        relations: ['user','orders'],
+        order: { id: 'DESC' },
+      });
+      return cart;
+    }
+
+    async findOne(cartId:number): Promise<Cart> {
+      const cart = await this.cartRepository.findOne({
+        where: { id:cartId },
+        relations: ['user','orders'],
+        order: { id: 'DESC' },
+      });
+      return cart;
+    }
+
+    create(user: User): Promise<Cart> {
+      const newCart = this.cartRepository.create({
+        user,
+      });
+  
+      return this.cartRepository.save(newCart);
+    }
 }
