@@ -1,15 +1,17 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
-import { Public } from 'src/auth/decorators/public.decorator';
-import { Cart } from 'src/cart/entity/cart.entity';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+
+
 import { Order } from 'src/orders/models/orders.entity';
 import { OrdersService } from 'src/orders/service/orders.service';
+import { Role } from 'src/users/models/roles.enum';
 import { CreateOrderDTO } from '../models/create-order.dto';
 
 @Controller('carts')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {
   }
-
+  @Roles(Role.MANAGER)
   @Get(':cartId/products')
   async getAll(
       @Param('cartId') cartId: number,
@@ -21,7 +23,7 @@ export class OrdersController {
       return orders;
     }
 
-
+  @Roles(Role.CLIENT)
   @Post(':cartId/products/:productId')
   create(
     @Param('cartId') cartId: number,
