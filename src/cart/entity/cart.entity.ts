@@ -40,15 +40,13 @@ export class Cart {
     })
     amount: number;
 
-    //RELATIONS
     @ManyToOne(() => User)
     @JoinColumn({ name: 'user_id' })
     user: User;
 
-    /**
-    * Products to be purchased
-     */
+   
     @OneToMany(() => Order, (order) => order.cartId)
+    @JoinColumn({ name: 'orders' })
     orders: Order[];
     
 

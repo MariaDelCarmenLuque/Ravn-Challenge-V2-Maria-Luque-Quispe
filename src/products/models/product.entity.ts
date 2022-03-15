@@ -107,7 +107,7 @@ export class Product {
     /**
    * Get final price for given quantity
    */
-    getFinalPrice(quantity = 1): number {
+    getFinalPrice(quantity): number {
         return this.price * quantity;
     }
 
