@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Cart } from 'src/cart/entity/cart.entity';
 import { Product } from 'src/products/models/product.entity';
 import { Repository } from 'typeorm';
 import { Order } from '../models/orders.entity';
@@ -13,11 +14,12 @@ export class OrdersService {
     private readonly products: Repository<Product>,
 ) {}
 
-  findAllFromCart(cartId: number): Promise<Order[]> {
-      return this.orderRepository.find({
+  async findAllFromCart(cartId: number): Promise<Order[]> {
+      return await this.orderRepository.find({
         cartId: cartId,
       });
   }
+
 
   async create(cartId: number, productId: number, body: any): Promise<Order> {
 
@@ -30,12 +32,10 @@ export class OrdersService {
     if (!product.isAvailable(body.quantity)) {
       throw new ForbiddenException('Required quantity not available');
     }
+    const price=product.price;
+    const subtotal = product.getFinalPrice(body.quantity);
 
-    const price = product.getFinalPrice();
-
-    this.orderRepository.merge({ ...body, price }, { cartId, productId });
-
-    return this.orderRepository.save(body);
+    return this.orderRepository.save(this.orderRepository.merge({ ...body,price, subtotal }, { cartId, productId }));
   }
 
 

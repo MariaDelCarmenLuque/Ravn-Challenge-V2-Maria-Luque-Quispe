@@ -21,7 +21,7 @@ export class Order {
     @Column({
         name: 'subtotal',
         type: 'bigint',
-        nullable: false,
+        nullable: true,
     })
     subtotal: number;
 
