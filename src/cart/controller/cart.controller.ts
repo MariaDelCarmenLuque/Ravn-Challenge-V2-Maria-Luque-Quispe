@@ -1,4 +1,6 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, Req} from '@nestjs/common';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Role } from 'src/users/models/roles.enum';
 import { Cart } from '../entity/cart.entity';
 import { CartService } from '../service/cart.service';
 
@@ -8,12 +10,13 @@ export class CartController {
         private readonly cartService: CartService
     ) {}
     
-   
+    @Roles(Role.MANAGER)
     @Get('')
     async getAll(): Promise<Cart[]> {
        return this.cartService.findAll();
     }
 
+    @Roles(Role.MANAGER)
     @Get('orders/:userId')
     async getAllOrderForClient(@Param('userId') userId: number): Promise<Cart[]> {
        const carts:Cart[] = await this.cartService.findAllForClient(userId);
@@ -22,6 +25,7 @@ export class CartController {
       }
       return carts;
     }
+    @Roles(Role.MANAGER)
     @Get(':id')
     async getCart(@Param('id') id: number,): Promise<Cart> {
         const cart = await this.cartService.findOne(id);
@@ -30,8 +34,10 @@ export class CartController {
         }
         return cart;
       }
+
+    @Roles(Role.MANAGER)
     @Get(':id/orders')
-    async getCartItems(@Req() req,@Param('id') id : number){
+    async getOrders(@Req() req,@Param('id') id : number){
         const user = req.user;
         const cart = await this.cartService.findCartForUser(id,user.id);
         if (!cart) {
@@ -39,6 +45,8 @@ export class CartController {
         }
         return cart;
     }
+
+    @Roles(Role.MANAGER)
     @Post(':id/items')
     create (@Body() body : any): Promise<Cart>{
         return this.cartService.create(body);
