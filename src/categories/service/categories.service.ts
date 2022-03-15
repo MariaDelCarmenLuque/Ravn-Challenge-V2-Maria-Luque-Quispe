@@ -14,8 +14,7 @@ export class CategoriesService {
 
     async getAll(options: IPaginationOptions):Promise <Pagination<Category>>{
         return paginate<Category>(this.categoriesRepository, options,{
-           select:['products','id','name'],
-            relations:['products'],
+
         });
     }
 
@@ -24,7 +23,6 @@ export class CategoriesService {
             where: {
                 id: id,
             },
-            relations: ['products'],
         });
         if(!category){
             throw new NotFoundException(`Category with id ${id} not found`);
