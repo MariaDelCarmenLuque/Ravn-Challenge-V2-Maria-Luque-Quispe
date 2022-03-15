@@ -1,4 +1,46 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post, Req} from '@nestjs/common';
+import { Cart } from '../entity/cart.entity';
+import { CartService } from '../service/cart.service';
 
-@Controller('cart')
-export class CartController {}
+@Controller('carts')
+export class CartController {
+    constructor(
+        private readonly cartService: CartService
+    ) {}
+    
+   
+    @Get('')
+    async getAll(): Promise<Cart[]> {
+       return this.cartService.findAll();
+    }
+
+    @Get('orders/:userId')
+    async getAllOrderForClient(@Param('userId') userId: number): Promise<Cart[]> {
+       const carts:Cart[] = await this.cartService.findAllForClient(userId);
+       if (!carts) {
+        throw new NotFoundException('Order for client not found');
+      }
+      return carts;
+    }
+    @Get(':id')
+    async getCart(@Param('id') id: number,): Promise<Cart> {
+        const cart = await this.cartService.findOne(id);
+        if (!cart) {
+          throw new NotFoundException('Cart not found');
+        }
+        return cart;
+      }
+    @Get(':id/orders')
+    async getCartItems(@Req() req,@Param('id') id : number){
+        const user = req.user;
+        const cart = await this.cartService.findCartForUser(id,user.id);
+        if (!cart) {
+          throw new NotFoundException('Cart not found');
+        }
+        return cart;
+    }
+    @Post(':id/items')
+    create (@Body() body : any): Promise<Cart>{
+        return this.cartService.create(body);
+    }
+}

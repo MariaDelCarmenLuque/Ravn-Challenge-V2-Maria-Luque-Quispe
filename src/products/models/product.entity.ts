@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Order } from "src/orders/models/orders.entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Category } from "../../categories/category.entity";
 import { ProductStatus } from "./product-status.enum";
 
@@ -76,10 +77,39 @@ export class Product {
 
 
     // RELATIONS
-    // cart
+    // order
+    @OneToMany(() => Order, (order) => order.cartId)
+    orders: Order[];
+    //-category
     @ManyToOne(()=> Category)
     @JoinColumn({
         name: 'category_id',
     })
     category: Category;
+
+    /**
+     * Check if product has availability
+     */
+
+    public isAvailable(quantity = 0): boolean {
+        return this.stock > quantity;
+      }
+    
+    /**
+     * Check if product is active
+     */
+
+     public isActive(): boolean {
+         if (ProductStatus.ACTIVE)
+        return true;
+    }
+
+    /**
+   * Get final price for given quantity
+   */
+    getFinalPrice(quantity): number {
+        return this.price * quantity;
+    }
+
+
 }
