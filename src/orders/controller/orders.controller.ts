@@ -1,7 +1,8 @@
-import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { Order } from 'src/orders/models/orders.entity';
 import { OrdersService } from 'src/orders/service/orders.service';
+import { CreateOrderDTO } from '../models/create-order.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -18,4 +19,13 @@ export class OrdersController {
         }
         return orders;
       }
+
+    @Post(':cartId/products/:productId')
+    create(
+      @Param('cartId') cartId: number,
+      @Param('productId') productId: number,
+      @Body() body: CreateOrderDTO,
+    ): Promise<Order> {
+      return this.ordersService.create(cartId, productId, body);
+    }
 }
