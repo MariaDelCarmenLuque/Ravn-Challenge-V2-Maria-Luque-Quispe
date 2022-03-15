@@ -86,4 +86,30 @@ export class Product {
         name: 'category_id',
     })
     category: Category;
+
+    /**
+     * Check if product has availability
+     */
+
+    public isAvailable(quantity = 0): boolean {
+        return this.stock > quantity;
+      }
+    
+    /**
+     * Check if product is active
+     */
+
+     public isActive(): boolean {
+         if (ProductStatus.ACTIVE)
+        return true;
+    }
+
+    /**
+   * Get final price for given quantity
+   */
+    getFinalPrice(quantity = 1): number {
+        return this.price * quantity;
+    }
+
+
 }
