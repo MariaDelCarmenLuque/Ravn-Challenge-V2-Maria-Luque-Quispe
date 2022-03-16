@@ -4,15 +4,15 @@ import { Cart } from "src/cart/entity/cart.entity";
 import { Product } from "src/products/models/product.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity('orders')
-export class Order {
+@Entity('CartItem')
+export class CartItem {
     @PrimaryGeneratedColumn({
         unsigned: true,
         type: 'bigint',
     })
     @ApiProperty({
         example: 1,
-        description: 'Order ID',
+        description: 'Cart Item ID',
         readOnly: true,
         type: Number,
       })
@@ -39,7 +39,7 @@ export class Order {
     })
     @ApiProperty({
         example: 1000,
-        description: 'Order subtotal',
+        description: 'Cart Item subtotal',
         nullable: false,
         type: Number,
       })
@@ -52,7 +52,7 @@ export class Order {
     })
     @ApiProperty({
         example: '2016-03-26 10:10:10-05:00',
-        description: "Order's creation date",
+        description: "Cart Item's creation date",
         format: 'date-time',
         type: Date,
         nullable: false,
@@ -66,14 +66,14 @@ export class Order {
     })
     @ApiProperty({
         example: '2016-03-26 10:10:10-05:00',
-        description: "Order's last update date",
+        description: "Cart Item's last update date",
         format: 'date-time',
         type: Date,
         nullable: false,
     })
     updatedAt: Date;
    
-    @ManyToOne(() => Product, (product) => product.orders)
+    @ManyToOne(() => Product, (product) => product.items)
     @JoinColumn({
         name: 'product_id',
     })
@@ -84,7 +84,7 @@ export class Order {
 
     productId: number;
     
-    @ManyToOne(() => Cart, (cart) => cart.orders)
+    @ManyToOne(() => Cart, (cart) => cart.items)
     @JoinColumn({
         name: 'cart_id',
     })

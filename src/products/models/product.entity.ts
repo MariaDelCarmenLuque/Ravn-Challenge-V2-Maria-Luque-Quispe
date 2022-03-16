@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Order } from "src/orders/models/orders.entity";
+import { CartItem} from "src/cartItems/models/cartItems.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Category } from "../../categories/category.entity";
 import { ProductStatus } from "./product-status.enum";
@@ -143,9 +143,9 @@ export class Product {
     /**
     * Relation with Order entity
     */
-    @OneToMany(() => Order, (order) => order.cartId)
-    @ApiProperty({ type: Order, description: 'Product contains multiple instance of Orders' })
-    orders: Order[];
+    @OneToMany(() => CartItem, (cartItem) => cartItem.cartId)
+    @ApiProperty({ type: CartItem, description: 'Product contains multiple instance of CartItem' })
+    items: CartItem[];
    /**
     * Relation with category entity
     */

@@ -13,21 +13,21 @@ export class CartService {
     async findAll(): Promise<Cart[]> {
       
         return this.cartRepository.find({
-          relations: ['orders'],
+          relations: ['items'],
         });
     }
 
     async findAllForClient(userId:number): Promise<Cart[]> {
 
       return this.cartRepository.find({
-        relations: ['orders'],
+        relations: ['items'],
         where: {user:userId}
       });
   }
     async findCartForUser(cartId:number,userId: number): Promise<Cart> {
       const cart = await this.cartRepository.findOne({
         where: { user: { id: userId },id:cartId },
-        relations: ['user','orders'],
+        relations: ['user','items'],
         order: { id: 'DESC' },
       });
       return cart;
@@ -36,7 +36,7 @@ export class CartService {
     async findOne(cartId:number): Promise<Cart> {
       const cart = await this.cartRepository.findOne({
         where: { id:cartId },
-        relations: ['user','orders'],
+        relations: ['user','items'],
         order: { id: 'DESC' },
       });
       return cart;

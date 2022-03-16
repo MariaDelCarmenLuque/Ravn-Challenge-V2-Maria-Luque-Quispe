@@ -12,8 +12,8 @@ import { Cart } from './cart/entity/cart.entity';
 import { Category } from './categories/category.entity';
 import { CategoriesModule } from './categories/categories.module';
 import { AuthModule } from './auth/auth.module';
-import { Order } from './orders/models/orders.entity';
-import { OrdersModule } from './orders/orders.module';
+import { CartItem } from './cartItems/models/cartItems.entity';
+import { CartItemsModule } from './cartItems/cartItems.module';
 
 @Module({
   imports: [
@@ -24,14 +24,14 @@ import { OrdersModule } from './orders/orders.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
-      entities: [Product,User,Cart,Category,Order],
+      entities: [Product,User,Cart,Category,CartItem],
       synchronize: true,
       autoLoadEntities: true,
     }),
     AuthModule,
     CartModule,
     CategoriesModule,
-    OrdersModule,
+    CartItemsModule,
     ProductsModule,
     UsersModule
   ],

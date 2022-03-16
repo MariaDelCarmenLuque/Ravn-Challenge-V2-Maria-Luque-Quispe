@@ -35,7 +35,7 @@ export class CartController {
     async getAllOrderForClient(@Param('userId') userId: number): Promise<Cart[]> {
        const carts:Cart[] = await this.cartService.findAllForClient(userId);
        if (!carts) {
-        throw new NotFoundException('Order for client not found');
+        throw new NotFoundException('Cart Item for client not found');
       }
       return carts;
     }
