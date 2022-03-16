@@ -1,7 +1,8 @@
 
+import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import { Cart } from "src/cart/entity/cart.entity";
 import { Product } from "src/products/models/product.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, RelationId, UpdateDateColumn } from "typeorm";
 
 @Entity('orders')
 export class Order {
@@ -9,6 +10,12 @@ export class Order {
         unsigned: true,
         type: 'bigint',
     })
+    @ApiProperty({
+        example: 1,
+        description: 'Order ID',
+        readOnly: true,
+        type: Number,
+      })
     id:number;
     
     @Column({
@@ -16,6 +23,13 @@ export class Order {
         type: 'int',
         nullable: false,
     })
+    @ApiProperty({
+        type: Number,
+        example: 10,
+        description: 'Products quantity to add to Cart',
+        nullable: false,
+        minimum: 1,
+      })
     quantity: number;
 
     @Column({
@@ -23,6 +37,12 @@ export class Order {
         type: 'bigint',
         nullable: true,
     })
+    @ApiProperty({
+        example: 1000,
+        description: 'Order subtotal',
+        nullable: false,
+        type: Number,
+      })
     subtotal: number;
 
     @CreateDateColumn({
@@ -30,11 +50,25 @@ export class Order {
         type: 'timestamptz',
         nullable: false,
     })
+    @ApiProperty({
+        example: '2016-03-26 10:10:10-05:00',
+        description: "Order's creation date",
+        format: 'date-time',
+        type: Date,
+        nullable: false,
+      })
     createdAt: Date;
 
     @UpdateDateColumn({
         name: 'updated_at',
         type: 'timestamptz',
+        nullable: false,
+    })
+    @ApiProperty({
+        example: '2016-03-26 10:10:10-05:00',
+        description: "Order's last update date",
+        format: 'date-time',
+        type: Date,
         nullable: false,
     })
     updatedAt: Date;
@@ -43,12 +77,25 @@ export class Order {
     @JoinColumn({
         name: 'product_id',
     })
+    @ApiProperty({
+        type: () => Product,
+        description: 'Product that the Product Item represents',
+      })
+    product: Product;
+    @ApiHideProperty()
+    @RelationId((ci: Order) => ci.product)
     productId: number;
     
     @ManyToOne(() => Cart, (cart) => cart.orders)
     @JoinColumn({
         name: 'cart_id',
     })
+    @ApiProperty({
+        description: 'Cart which Cart Product belongs',
+      })
+    cart: Cart;
+    @ApiHideProperty()
+    @RelationId((ci: Order) => ci.cart)
     cartId: number;
 
 }
