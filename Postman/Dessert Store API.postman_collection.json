@@ -520,6 +520,41 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Update a Product status",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Chocolate cake\",\r\n    \"description\": \"A cake with many variety of dried fruits and chocolates\",\r\n    \"stock\": 14,\r\n    \"price\": 250,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/11/status",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"11",
+										"status"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
