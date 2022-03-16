@@ -5,6 +5,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
 import {
@@ -44,9 +45,10 @@ export class CartController {
     return this.cartService.findAll();
   }
 
+  @ApiBearerAuth()
   @Roles(Role.MANAGER)
-  @Get('orders/:userId')
-  async getAllOrderForClient(@Param('userId') userId: number): Promise<Cart[]> {
+  @Get('/orders')
+  async getAllOrderForClient(@Query('userId') userId: number): Promise<Cart[]> {
     const carts: Cart[] = await this.cartService.findAllForClient(userId);
     if (!carts) {
       throw new NotFoundException('Cart Item for client not found');
@@ -109,7 +111,7 @@ export class CartController {
   })
   @ApiBearerAuth()
   @Roles(Role.MANAGER)
-  @Post(':id/items')
+  @Post('')
   create(@Body() body: any): Promise<Cart> {
     return this.cartService.create(body);
   }
