@@ -107,6 +107,7 @@ export class CategoriesController {
           },
         },
       })
+    @ApiBearerAuth()
     @Public()
     @Get(':id')
     async findOne(@Param('id')id:number): Promise<Category> {

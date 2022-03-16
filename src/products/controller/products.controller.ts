@@ -133,7 +133,7 @@ export class ProductsController {
         example: 1,
       })
     
-    // @ApiBearerAuth()
+    @ApiBearerAuth()
     @Public()
     @Get('')
     async findAll(
