@@ -354,7 +354,7 @@ export class ProductsController {
     },
   })
   @ApiBearerAuth()
-  @Roles(Role.CLIENT)
+  @Roles(Role.MANAGER)
   @Delete(':id')
   async delete(@Param('id') id: number) {
     const product: Product = await this.productsService.findOne(id);
