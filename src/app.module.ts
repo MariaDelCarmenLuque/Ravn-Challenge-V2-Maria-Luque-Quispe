@@ -28,12 +28,12 @@ import { OrdersModule } from './orders/orders.module';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    UsersModule,
-    ProductsModule,
+    AuthModule,
     CartModule,
     CategoriesModule,
-    AuthModule,
-    OrdersModule
+    OrdersModule,
+    ProductsModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],

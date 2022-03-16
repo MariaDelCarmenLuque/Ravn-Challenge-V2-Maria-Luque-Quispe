@@ -1,15 +1,29 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, Req} from '@nestjs/common';
+import { ApiBearerAuth, ApiForbiddenResponse, ApiNotFoundResponse, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/users/models/roles.enum';
 import { Cart } from '../entity/cart.entity';
 import { CartService } from '../service/cart.service';
 
+@ApiTags('Carts')
 @Controller('carts')
 export class CartController {
     constructor(
         private readonly cartService: CartService
     ) {}
-    
+
+    @ApiOperation({
+      summary: 'Gets all carts'
+    })
+    @ApiResponse({
+      status: 201, 
+      description: 'Listing all Carts'
+    })
+    @ApiForbiddenResponse({
+      status: 403, 
+      description: 'Forbidden.'
+    })
+    @ApiBearerAuth()
     @Roles(Role.MANAGER)
     @Get('')
     async getAll(): Promise<Cart[]> {
@@ -25,6 +39,29 @@ export class CartController {
       }
       return carts;
     }
+
+
+    @ApiOperation({
+      summary: 'Gets one cart by Id',
+    })
+    @ApiResponse({
+      status: 201, 
+      description: 'Cart succesfully found'
+    })
+    @ApiForbiddenResponse({ 
+      status: 403, 
+      description: 'Forbidden.'
+    })
+    @ApiNotFoundResponse({
+      status: 404, 
+      description: 'No Cart was found that matches that id'
+    })
+    @ApiParam({
+      name: "id",
+      type: "integer",
+      required: true
+    })
+    @ApiBearerAuth()
     @Roles(Role.MANAGER)
     @Get(':id')
     async getCart(@Param('id') id: number,): Promise<Cart> {
@@ -46,6 +83,18 @@ export class CartController {
         return cart;
     }
 
+    @ApiOperation({
+      summary: 'Creates cart'
+    })
+    @ApiResponse({
+      status: 201, 
+      description: 'Cart succesfully created'
+    })
+    @ApiForbiddenResponse({ 
+      status: 403, 
+      description: 'Forbidden.'
+    })
+    @ApiBearerAuth()
     @Roles(Role.MANAGER)
     @Post(':id/items')
     create (@Body() body : any): Promise<Cart>{
