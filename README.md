@@ -4,7 +4,8 @@
 - Installation 
 - Usage / Documentation 
 - Technologies & Libraries 
-- Contribuing 
+- Pending Features
+- Collaboration
 - Authors 
 
 ## Description
