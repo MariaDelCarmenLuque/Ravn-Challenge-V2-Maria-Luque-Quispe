@@ -1,4 +1,9 @@
-import { ForbiddenException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cart } from 'src/cart/entity/cart.entity';
 import { Product } from 'src/products/models/product.entity';
@@ -14,20 +19,22 @@ export class CartItemsService {
     private readonly products: Repository<Product>,
     @InjectRepository(Cart)
     private readonly cartsRepository: Repository<Cart>,
-) {}
+  ) {}
 
   async findAllFromCart(cartId: number): Promise<CartItem[]> {
-      return await this.cartItemsRepository.find({
-        where:{cartId: cartId},
-      });
+    return await this.cartItemsRepository.find({
+      where: { cartId: cartId },
+    });
   }
 
-
-  async create(cartId: number, productId: number, body: any): Promise<CartItem> {
-
+  async create(
+    cartId: number,
+    productId: number,
+    body: any,
+  ): Promise<CartItem> {
     const product = await this.products.findOne(productId);
-    if(!product){
-      throw new HttpException('Product Not Found',HttpStatus.NOT_FOUND)
+    if (!product) {
+      throw new HttpException('Product Not Found', HttpStatus.NOT_FOUND);
     }
     if (!product.isActive()) {
       throw new ForbiddenException('This product has been disable');
@@ -37,10 +44,11 @@ export class CartItemsService {
       throw new ForbiddenException('Required quantity not available');
     }
     const subtotal = product.getFinalPrice(body.quantity);
-    body.subtotal=subtotal,
-    this.cartItemsRepository.merge({ ...body, subtotal }, { cartId, productId })
+    (body.subtotal = subtotal),
+      this.cartItemsRepository.merge(
+        { ...body, subtotal },
+        { cartId, productId },
+      );
     return this.cartItemsRepository.save(body);
   }
-
-
 }

@@ -1,7 +1,24 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post, UnauthorizedException } from '@nestjs/common';
-import { ApiBearerAuth, ApiForbiddenResponse, ApiNotFoundResponse, ApiOperation, ApiResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  UnauthorizedException,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-
 
 import { CartItem } from 'src/cartItems/models/cartItems.entity';
 import { CartItemsService } from 'src/cartItems/service/cartItems.service';
@@ -11,9 +28,7 @@ import { CreateCartItemDTO } from '../models/create-cart-item.dto';
 @ApiTags('Cart Items')
 @Controller('carts')
 export class CartItemsController {
-  constructor(private readonly cartItemsService: CartItemsService) {
-  }
-
+  constructor(private readonly cartItemsService: CartItemsService) {}
 
   @ApiOperation({ summary: 'Get all cart items' })
   @ApiUnauthorizedResponse({
@@ -27,31 +42,30 @@ export class CartItemsController {
     description: 'List with all cart items',
     type: [CartItem],
   })
-  @ApiForbiddenResponse({ 
-    status: 403, 
+  @ApiForbiddenResponse({
+    status: 403,
     description: 'Forbidden.',
-    schema:{
-      example:
-      {
-        "statusCode": 403,
-        "message": "Forbidden resource",
-        "error": "Forbidden"
-      }
-    }
+    schema: {
+      example: {
+        statusCode: 403,
+        message: 'Forbidden resource',
+        error: 'Forbidden',
+      },
+    },
   })
   @ApiBearerAuth()
   @Roles(Role.MANAGER)
   @Get(':cartId/products')
   @HttpCode(200)
-  async getAll(
-      @Param('cartId') cartId: number,
-    ): Promise<CartItem[]> {
-      const cartItems: CartItem[] = await this.cartItemsService.findAllFromCart(cartId);
-      if(!cartItems){
-          throw new HttpException('Cart Items Not Found',HttpStatus.BAD_REQUEST)
-      }
-      return cartItems;
+  async getAll(@Param('cartId') cartId: number): Promise<CartItem[]> {
+    const cartItems: CartItem[] = await this.cartItemsService.findAllFromCart(
+      cartId,
+    );
+    if (!cartItems) {
+      throw new HttpException('Cart Items Not Found', HttpStatus.BAD_REQUEST);
     }
+    return cartItems;
+  }
 
   @ApiOperation({ summary: 'Create a Cart Item' })
   @ApiUnauthorizedResponse({
@@ -67,22 +81,22 @@ export class CartItemsController {
   })
   @ApiNotFoundResponse({
     description: 'Product Not Found',
-      schema: {
-        example: {
-            "statusCode": 404,
-            "message": "Product Not Found"
-          },
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'Product Not Found',
       },
+    },
   })
-  @ApiForbiddenResponse({ 
-    status: 403, 
+  @ApiForbiddenResponse({
+    status: 403,
     description: 'Forbidden.',
-    schema:{
-      example:{
-        "statusCode": 403,
-        "message": "Required quantity not available",
-        "error": "Forbidden"
-      }
+    schema: {
+      example: {
+        statusCode: 403,
+        message: 'Required quantity not available',
+        error: 'Forbidden',
+      },
     },
   })
   @ApiBearerAuth()

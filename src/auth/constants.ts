@@ -1,3 +1,3 @@
 export const jwtConstants = {
-    secret: 'dessertStore_api',
-  };
+  secret: 'dessertStore_api',
+};

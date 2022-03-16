@@ -25,7 +25,7 @@ import { ImagesModule } from './images/images.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
-      entities: [Product,User,Cart,Category,CartItem],
+      entities: [Product, User, Cart, Category, CartItem],
       synchronize: true,
       autoLoadEntities: true,
     }),
@@ -35,7 +35,7 @@ import { ImagesModule } from './images/images.module';
     CartItemsModule,
     ProductsModule,
     UsersModule,
-    ImagesModule
+    ImagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

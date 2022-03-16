@@ -4,7 +4,6 @@ import {
   DocumentBuilder,
 } from '@nestjs/swagger';
 
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -12,11 +11,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-  .setTitle('Dessert Store API')
-  .setDescription('')
-  .setVersion('1.0')
-  .addBearerAuth()
-  .build();
+    .setTitle('Dessert Store API')
+    .setDescription('')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
 
   const options: SwaggerDocumentOptions = {
     operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
