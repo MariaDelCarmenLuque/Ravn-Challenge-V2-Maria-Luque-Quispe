@@ -8,6 +8,7 @@ import {
 import { Category } from 'src/categories/category.entity';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from '../models/create-product.dto';
+import { ProductStatus } from '../models/product-status.enum';
 import { Product } from '../models/product.entity';
 import { UpdateProductDto } from '../models/update-product.dto';
 
@@ -63,7 +64,16 @@ export class ProductsService {
 
     this.productsRepository.save(product);
   }
-
+  async updateStatus(product: Product) {
+    if (!product.isActive()) {
+      product.status = ProductStatus.ACTIVE;
+      await this.productsRepository.save(product);
+    } else {
+      product.status = ProductStatus.DISABLE;
+      await this.productsRepository.save(product);
+    }
+    return product;
+  }
   async delete(id: number) {
     return await this.productsRepository.softDelete(id);
   }

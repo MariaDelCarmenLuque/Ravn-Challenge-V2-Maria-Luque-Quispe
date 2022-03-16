@@ -189,7 +189,7 @@ export class Product {
    */
 
   public isActive(): boolean {
-    if (ProductStatus.ACTIVE) return true;
+    return this.status == ProductStatus.ACTIVE;
   }
 
   /**

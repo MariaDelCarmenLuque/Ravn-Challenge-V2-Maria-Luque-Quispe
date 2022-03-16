@@ -320,13 +320,23 @@ export class ProductsController {
 
   @Roles(Role.MANAGER)
   @Patch(':id/status')
-  async disableProduct() {
-    /**
-     * Implement code of disableProduct()
-     * */
-    return '';
+  async enableProduct(@Param('id') id: number): Promise<Product> {
+    const product: Product = await this.productsService.findOne(id);
+    if (!product) {
+      throw new HttpException('Product Not Found', HttpStatus.NOT_FOUND);
+    }
+    return await this.productsService.updateStatus(product);
   }
 
+  // @Roles(Role.MANAGER)
+  // @Patch(':id/status/disable')
+  // async disableProduct(@Param('id') id: number): Promise<Product> {
+  //   const product: Product = await this.productsService.findOne(id);
+  //   if (!product) {
+  //     throw new HttpException('Product Not Found', HttpStatus.NOT_FOUND);
+  //   }
+  //   return await this.productsService.updateStatus(product);
+  // }
   @ApiOperation({ summary: 'Delete a product by ID' })
   @ApiResponse({
     status: 200,
