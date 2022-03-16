@@ -3,7 +3,7 @@ import { IsNumber, IsString, Length, Max, Min } from "class-validator"
 
 export class CreateProductDto {
     @IsString()
-    @Length(1,100)
+    @Length(1,40)
     @ApiProperty({
         example: 'Chocolate cake',
         description: 'Product name',
