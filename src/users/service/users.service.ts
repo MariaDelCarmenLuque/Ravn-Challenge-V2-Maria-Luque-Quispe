@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 import { Repository } from 'typeorm';
@@ -19,7 +19,11 @@ import { User } from '../models/user.entity';
     }
 
     async findOne(id: number): Promise<User> {
-        return await this.usersRepository.findOne(id);
+        const user=await this.usersRepository.findOne(id);
+        if(!user){
+            throw new HttpException('User Not Found',HttpStatus.NOT_FOUND);
+        }
+        return user;
       }
     
 
