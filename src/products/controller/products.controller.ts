@@ -133,7 +133,7 @@ export class ProductsController {
         example: 1,
       })
     
-    @ApiBearerAuth()
+    // @ApiBearerAuth()
     @Public()
     @Get('')
     async findAll(
@@ -318,7 +318,7 @@ export class ProductsController {
     },
     })
     @ApiBearerAuth()
-    @Roles(Role.MANAGER)
+    @Roles(Role.CLIENT)
     @Delete(':id')
     async delete(@Param('id') id:number){
         const product:Product = await this.productsService.findOne(id);

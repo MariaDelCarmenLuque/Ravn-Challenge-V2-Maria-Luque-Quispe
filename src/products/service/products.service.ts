@@ -17,12 +17,16 @@ export class ProductsService {
     ){}
 
     async getAll(options: IPaginationOptions, categoryId?: number):Promise <Pagination<Product>>{
-        return paginate<Product>(this.productsRepository, options, {
+        if(categoryId){
+            return paginate<Product>(this.productsRepository, options, {
+            
             relations: ['category'],
             where: {
               category: categoryId },
             }
           );
+        } else return paginate<Product>(this.productsRepository, options);
+        
     }
 
     async findOne(id:number):Promise<Product>{
