@@ -68,10 +68,10 @@ $ npm run test
 - Typeorm
 ## Pending Features
 
-- Include Unit Testing for Controllers an Services.
+- Include Unit Testing for Controllers and Services.
 - Add Buy Products by Client.
-- Add Like Products bye Client.
-- Add implemntation in disableProduct method
+- Add Like Products by Client.
+- Add implementation in disableProduct method
 - Add error catch for validation in fields of entities.
 - Add update & delete(softdelete) methods for Carts, Categories, CartItems and Images entities.
 - Add softdelete methods in Users entity.
