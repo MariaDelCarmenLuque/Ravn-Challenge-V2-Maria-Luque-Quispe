@@ -25,9 +25,11 @@ $ npm install
 Create a `.env` file using the `.env.example` file:
 
 ```bash
-PORT=port_where_the_app_is_running_at
+
 
 #DATABASE
+DB_PORT=port_where_the_app_is_running_at
+DB_HOST=host_where_the_app_is_running_at
 DB_USERNAME=your_db_username
 DB_PASS=your_db_password
 DB_NAME=your_db_name
@@ -50,6 +52,10 @@ $ npm run start:dev
 $ npm run test
 
 ```
+#### Documentation:
+
+`HOST:PORT/api/docs`
+
 ## Technologies & Libraries
 - NestJs
 - Typescript
@@ -60,7 +66,23 @@ $ npm run test
 - REST 
 - Swagger
 - Typeorm
-## Contributing
+## Pending Features
+
+- Include Unit Testing for Controllers an Services.
+- Add Buy Products by Client.
+- Add Like Products bye Client.
+- Add implemntation in disableProduct method
+- Add error catch for validation in fields of entities.
+- Add update & delete(softdelete) methods for Carts, Categories, CartItems and Images entities.
+- Add softdelete methods in Users entity.
+
+## Collaboration
+Collaboration with the project are welcome.
+
+> Do a Pull request
+
+> For major changes, please open an issue first to discuss what you would like to change.
+
 ## Authors
 Maria del Carmen Luque Quispe
 
