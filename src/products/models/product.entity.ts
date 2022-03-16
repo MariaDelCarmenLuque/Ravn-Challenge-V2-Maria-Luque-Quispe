@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { CartItem} from "src/cartItems/models/cartItems.entity";
+import { Images } from "src/images/models/images.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Category } from "../../categories/category.entity";
 import { ProductStatus } from "./product-status.enum";
@@ -77,12 +78,6 @@ export class Product {
         type: 'character varying',
         nullable: false,
     })
-    @ApiProperty({
-      example: '["https://site/subsite/documentlibrary/Desserts.jpg","https://site/subsite/documentlibrary/Desserts.jpg","https://site/subsite/documentlibrary/Desserts.jpg"]',
-      description: 'URLs image of Product',
-      nullable: false,
-    })
-    imageUrl:string;
 
     @Column({
         name: 'price',
@@ -138,10 +133,15 @@ export class Product {
         format: 'date-time',
     })
     deletedAt?: Date;
-
+    /**
+     * Relation with Image entity
+     */
+    @OneToMany(() => Images, image => image.product)
+    images: Images[];
+    @ApiProperty({ type: Images, description: 'Product contains multiple instance of Images' }) 
 
     /**
-    * Relation with Order entity
+    * Relation with Cart Item entity
     */
     @OneToMany(() => CartItem, (cartItem) => cartItem.cartId)
     @ApiProperty({ type: CartItem, description: 'Product contains multiple instance of CartItem' })
