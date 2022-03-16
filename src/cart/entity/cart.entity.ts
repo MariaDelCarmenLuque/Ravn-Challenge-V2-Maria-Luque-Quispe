@@ -1,5 +1,5 @@
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
-import { Order } from "src/orders/models/orders.entity";
+import { CartItem} from "src/cartItems/models/cartItems.entity";
 import { User } from "src/users/models/user.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -73,9 +73,9 @@ export class Cart {
   /**
    * Products to be purchased
    */
-    @OneToMany(() => Order, (order) => order.cartId)
-    @JoinColumn({ name: 'orders' })
-    orders: Order[];
+    @OneToMany(() => CartItem, (cartItem) => cartItem.cartId)
+    @JoinColumn({ name: 'items' })
+    items: CartItem[];
     
 
 

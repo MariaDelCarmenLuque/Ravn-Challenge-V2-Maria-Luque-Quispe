@@ -3,19 +3,19 @@ import { ApiBearerAuth, ApiForbiddenResponse, ApiNotFoundResponse, ApiOperation,
 import { Roles } from 'src/auth/decorators/roles.decorator';
 
 
-import { Order } from 'src/orders/models/orders.entity';
-import { OrdersService } from 'src/orders/service/orders.service';
+import { CartItem } from 'src/cartItems/models/cartItems.entity';
+import { CartItemsService } from 'src/cartItems/service/cartItems.service';
 import { Role } from 'src/users/models/roles.enum';
-import { CreateOrderDTO } from '../models/create-order.dto';
+import { CreateCartItemDTO } from '../models/create-cart-item.dto';
 
-@ApiTags('Orders')
+@ApiTags('Cart Items')
 @Controller('carts')
-export class OrdersController {
-  constructor(private readonly ordersService: OrdersService) {
+export class CartItemsController {
+  constructor(private readonly cartItemsService: CartItemsService) {
   }
 
 
-  @ApiOperation({ summary: 'Get all orders' })
+  @ApiOperation({ summary: 'Get all cart items' })
   @ApiUnauthorizedResponse({
     schema: {
       example: new UnauthorizedException().getResponse(),
@@ -24,8 +24,8 @@ export class OrdersController {
   })
   @ApiResponse({
     status: 200,
-    description: 'List with all orders',
-    type: [Order],
+    description: 'List with all cart items',
+    type: [CartItem],
   })
   @ApiForbiddenResponse({ 
     status: 403, 
@@ -45,15 +45,15 @@ export class OrdersController {
   @HttpCode(200)
   async getAll(
       @Param('cartId') cartId: number,
-    ): Promise<Order[]> {
-      const orders: Order[] = await this.ordersService.findAllFromCart(cartId);
-      if(!orders){
-          throw new HttpException('Order Not Found',HttpStatus.BAD_REQUEST)
+    ): Promise<CartItem[]> {
+      const cartItems: CartItem[] = await this.cartItemsService.findAllFromCart(cartId);
+      if(!cartItems){
+          throw new HttpException('Cart Items Not Found',HttpStatus.BAD_REQUEST)
       }
-      return orders;
+      return cartItems;
     }
 
-  @ApiOperation({ summary: 'Create a order' })
+  @ApiOperation({ summary: 'Create a Cart Item' })
   @ApiUnauthorizedResponse({
     schema: {
       example: new UnauthorizedException().getResponse(),
@@ -62,8 +62,8 @@ export class OrdersController {
   })
   @ApiResponse({
     status: 201,
-    description: 'Order successfully created',
-    type: Order,
+    description: 'Cart Item successfully created',
+    type: CartItem,
   })
   @ApiNotFoundResponse({
     description: 'Product Not Found',
@@ -91,8 +91,8 @@ export class OrdersController {
   create(
     @Param('cartId') cartId: number,
     @Param('productId') productId: number,
-    @Body() body: CreateOrderDTO,
-  ): Promise<Order> {
-    return this.ordersService.create(cartId, productId, body);
+    @Body() body: CreateCartItemDTO,
+  ): Promise<CartItem> {
+    return this.cartItemsService.create(cartId, productId, body);
   }
 }
