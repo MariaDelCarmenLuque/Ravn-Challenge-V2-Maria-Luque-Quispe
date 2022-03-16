@@ -14,6 +14,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { AuthModule } from './auth/auth.module';
 import { CartItem } from './cartItems/models/cartItems.entity';
 import { CartItemsModule } from './cartItems/cartItems.module';
+import { ImagesModule } from './images/images.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { CartItemsModule } from './cartItems/cartItems.module';
     CategoriesModule,
     CartItemsModule,
     ProductsModule,
-    UsersModule
+    UsersModule,
+    ImagesModule
   ],
   controllers: [AppController],
   providers: [AppService],

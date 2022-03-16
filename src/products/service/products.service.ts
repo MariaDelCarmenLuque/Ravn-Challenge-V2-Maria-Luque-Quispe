@@ -25,7 +25,9 @@ export class ProductsService {
               category: categoryId },
             }
           );
-        } else return paginate<Product>(this.productsRepository, options);
+        } else return paginate<Product>(this.productsRepository, options,{
+            relations: ['category','images'],
+        });
         
     }
 

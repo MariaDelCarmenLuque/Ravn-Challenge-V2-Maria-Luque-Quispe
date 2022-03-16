@@ -18,14 +18,6 @@ export class CreateProductDto {
     })
     description: string;
 
-    @IsString()
-    @Length(1,1000)
-    @ApiProperty({
-        example: '["https://site/subsite/documentlibrary/Desserts.jpg","https://site/subsite/documentlibrary/Desserts.jpg","https://site/subsite/documentlibrary/Desserts.jpg"]',
-        description: 'URLs image of Product',
-    })
-    imageUrl: string;
-
     @IsNumber()
     @Min(1)
     @Max(1000000)
