@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cart } from 'src/cart/entity/cart.entity';
 import { Product } from 'src/products/models/product.entity';
@@ -26,7 +26,9 @@ export class OrdersService {
   async create(cartId: number, productId: number, body: any): Promise<Order> {
 
     const product = await this.products.findOne(productId);
-
+    if(!product){
+      throw new HttpException('Product Not Found',HttpStatus.NOT_FOUND)
+    }
     if (!product.isActive()) {
       throw new ForbiddenException('This product has been disable');
     }

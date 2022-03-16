@@ -1,8 +1,8 @@
 
-import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger";
 import { Cart } from "src/cart/entity/cart.entity";
 import { Product } from "src/products/models/product.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, RelationId, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('orders')
 export class Order {
@@ -81,9 +81,7 @@ export class Order {
         type: () => Product,
         description: 'Product that the Product Item represents',
       })
-    product: Product;
-    @ApiHideProperty()
-    @RelationId((ci: Order) => ci.product)
+
     productId: number;
     
     @ManyToOne(() => Cart, (cart) => cart.orders)
@@ -93,9 +91,7 @@ export class Order {
     @ApiProperty({
         description: 'Cart which Cart Product belongs',
       })
-    cart: Cart;
-    @ApiHideProperty()
-    @RelationId((ci: Order) => ci.cart)
+
     cartId: number;
 
 }
