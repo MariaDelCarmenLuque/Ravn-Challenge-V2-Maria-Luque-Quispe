@@ -12,11 +12,13 @@ export class OrdersService {
     private readonly orderRepository: Repository<Order>,
     @InjectRepository(Product)
     private readonly products: Repository<Product>,
+    @InjectRepository(Cart)
+    private readonly cartsRepository: Repository<Cart>,
 ) {}
 
   async findAllFromCart(cartId: number): Promise<Order[]> {
       return await this.orderRepository.find({
-        cartId: cartId,
+        where:{cartId: cartId},
       });
   }
 
@@ -32,10 +34,10 @@ export class OrdersService {
     if (!product.isAvailable(body.quantity)) {
       throw new ForbiddenException('Required quantity not available');
     }
-    const price=product.price;
     const subtotal = product.getFinalPrice(body.quantity);
-
-    return this.orderRepository.save(this.orderRepository.merge({ ...body,price, subtotal }, { cartId, productId }));
+    body.subtotal=subtotal,
+    this.orderRepository.merge({ ...body, subtotal }, { cartId, productId })
+    return this.orderRepository.save(body);
   }
 
 
