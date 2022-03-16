@@ -1,0 +1,1673 @@
+{
+	"info": {
+		"_postman_id": "c64961d3-de5c-4f6f-9167-a40708c3f04b",
+		"name": "Dessert Store API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Manager",
+					"item": [
+						{
+							"name": "Sign Up of User with Manager Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n    \"password\": \"1234567890aAbB!\",\r\n    \"passwordConfirmation\": \"1234567890aAbB!\",\r\n    \"email\": \"maritcarmn@gmail.com\",\r\n    \"role\": \"manager\"\r\n\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/auth/signUp",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"auth",
+										"signUp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign In of User with Manager Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n    \"password\": \"1234567890aAbB!\",\r\n    \"email\": \"maritcarmn@gmail.com\"\r\n    \r\n\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/auth/signIn",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"auth",
+										"signIn"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Client",
+					"item": [
+						{
+							"name": "Sign Up of User with Client Role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n    \"password\": \"1234567890aAbB!\",\r\n    \"passwordConfirmation\": \"1234567890aAbB!\",\r\n    \"email\": \"maritcarmn24@gmail.com\",\r\n    \"role\": \"client\"\r\n\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/auth/signUp",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"auth",
+										"signUp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign In of User with Client Role",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n    \"password\": \"1234567890aAbB!\",\r\n    \"email\": \"maritcarmn24@gmail.com\"\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/auth/signIn",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"auth",
+										"signIn"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "[Forbidden]: Get all user when logged as Client user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/users/all",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"users",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Unauthorized]Get all user when not logged in",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/users/all",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"users",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Forbidden]: Find by id user as Client user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/users/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Unauthorized]Find by Id as not logged in user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/users/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get data of user logged",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/users",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all user when logger as Manager user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/users/all",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"users",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find by Id user as Manager User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}:{{PORT}}/users/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Manager Permission",
+					"item": [
+						{
+							"name": "Create a Product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Chocolate cake\",\r\n    \"description\": \"A cake with many variety of dried fruits and chocolates\",\r\n    \"stock\": 14,\r\n    \"price\": 250,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a Product",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Chocolate cake\",\r\n    \"description\": \"A cake with many variety of dried fruits and chocolates\",\r\n    \"stock\": 14,\r\n    \"price\": 250,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a Product",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Chocolate cake\",\r\n    \"description\": \"A cake with many variety of dried fruits and chocolates\",\r\n    \"stock\": 14,\r\n    \"price\": 250,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/35",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"35"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Not Found] Delete a Product",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Chocolate cake\",\r\n    \"description\": \"A cake with many variety of dried fruits and chocolates\",\r\n    \"stock\": 14,\r\n    \"price\": 250,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/350000",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"350000"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Public permission",
+					"item": [
+						{
+							"name": "List product with pagination",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find by Id product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Not found] Find by Id Product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/123123123123",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"123123123123"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Unauthorized] Create a Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Chocolate cake\",\r\n    \"description\": \"A cake with many variety of dried fruits and chocolates\",\r\n    \"stock\": 14,\r\n    \"price\": 250,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Unauthorized] Update a Product",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Chocolate cake\",\r\n    \"description\": \"A cake with many variety of dried fruits and chocolates\",\r\n    \"stock\": 14,\r\n    \"price\": 250,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Unauthorized] Delete a Product",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search products by Category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products?category=1&limit=10&page=1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Client Permission",
+					"item": [
+						{
+							"name": "[Forbidden]: Create a Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Chocolate cake\",\r\n    \"description\": \"A cake with many variety of dried fruits and chocolates\",\r\n    \"stock\": 14,\r\n    \"price\": 250,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Forbidden]: Update a Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Chocolate cake\",\r\n    \"description\": \"A cake with many variety of dried fruits and chocolates\",\r\n    \"stock\": 15,\r\n    \"price\": 300,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Forbidden]: Delete a Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/products/35",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products",
+										"35"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cart Items",
+			"item": [
+				{
+					"name": "Manager",
+					"item": [
+						{
+							"name": "[Forbidden] Add products to Cart",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\":2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/1/products/2",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"1",
+										"products",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Cart Items",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/1/products",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"1",
+										"products"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Client",
+					"item": [
+						{
+							"name": "Add Products to Cart",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\":2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/1/products/2",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"1",
+										"products",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Not Found] Add Products to Cart",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\":2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/1/products/2222222222",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"1",
+										"products",
+										"2222222222"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Forbidden] Add Products to Cart(quantity not available)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\":222222222\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/1/products/2",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"1",
+										"products",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Forbidden] Get all Cart Items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/1/products",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"1",
+										"products"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Public",
+					"item": [
+						{
+							"name": "[Unauthorized] Get all Cart Items",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/1/products",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"1",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Unauthorized] Add products to Cart",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\":2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/1/products/2",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"1",
+										"products",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Public",
+					"item": [
+						{
+							"name": "Get all Categories",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/categories",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find category by Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/categories/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"categories",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Not Found]Find category by Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/categories/100",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"categories",
+										"100"
+									]
+								},
+								"description": "if Id is validate `Not Found`\r\nelse Server Error"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manager",
+					"item": [
+						{
+							"name": "Create  a category",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Cupcake\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/categories",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Client",
+					"item": [
+						{
+							"name": "[Forbidden] Create categories",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Cupcake\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/categories",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Images",
+			"item": [
+				{
+					"name": "Manager",
+					"item": [
+						{
+							"name": "[Unproessable entity]Upload images per product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://site/subsite/documentlibrary/Desserts.jpg\",\r\n    \"productId\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/images",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload images per product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://site/subsite/documentlibrary/Desserts.jpg\",\r\n    \"productId\":33\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/images",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"images"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Client",
+					"item": [
+						{
+							"name": "[Unauthorized] Upload images per product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Beare eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJyb2xlIjoiY2xpZW50IiwiZW1haWwiOiJtYXJpdGNhcm1uMjRAZ21haWwuY29tIiwiaWF0IjoxNjQ3NDAyMjUxfQ.P4fg6L266khp_wW1e21g92bRh4Sx8yE4cgsqGB_d2hc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://site/subsite/documentlibrary/Desserts.jpg\",\r\n    \"productId\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/images",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"images"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Public",
+					"item": [
+						{
+							"name": "Get all images with pagination",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/images",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Unauthorized] Upload images per product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://site/subsite/documentlibrary/Desserts.jpg\",\r\n    \"productId\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/images",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"images"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Manager",
+					"item": [
+						{
+							"name": "Show client orders",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/orders?userId=1",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[Not Found]Find Cart by Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/100",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"100"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find orders by Cart id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoibWFuYWdlciIsImVtYWlsIjoibWFyaXRjYXJtbkBnbWFpbC5jb20iLCJpYXQiOjE2NDc0NDM2MTF9.PVdYgWaF6pQIqCQhOJhbZr4KybZWnsEYpB3l7-65d6s",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\":2345,\r\n    \"user\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}:{{PORT}}/carts/10/orders",
+									"host": [
+										"{{HOST}}"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"carts",
+										"10",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
