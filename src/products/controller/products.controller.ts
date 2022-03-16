@@ -125,22 +125,32 @@ export class ProductsController {
         description: 'Max amount of products per page',
         example: 10,
     })
+    @ApiQuery({
+        name: 'category',
+        type: 'number',
+        description: 'Category ID',
+        required: false,
+        example: 1,
+      })
+    
     @ApiBearerAuth()
     @Public()
     @Get('')
     async findAll(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+        @Query('category') categoryId?: number,
     ):Promise<Pagination<Product>>  {
         limit = limit > 100 ? 100 : limit;
-        return this.productsService.getAll({
+        return this.productsService.getAll(
+        {
             page,
             limit,
             route:'/products',
-        });
+        },
+        categoryId,
+        );
     }
-
-    
 
     @ApiOperation({ summary: 'Get a single product by ID' })
     @ApiResponse({

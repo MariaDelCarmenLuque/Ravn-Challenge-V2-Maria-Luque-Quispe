@@ -2,7 +2,6 @@ import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 import { Category } from 'src/categories/category.entity';
-import { CategoriesService } from 'src/categories/service/categories.service';
 import { Repository } from 'typeorm';
 import { CreateProductDto } from '../models/create-product.dto';
 import { Product } from '../models/product.entity';
@@ -13,13 +12,17 @@ export class ProductsService {
     constructor(
         @InjectRepository(Product)
         private readonly productsRepository: Repository<Product>,
-        private readonly categoriesService: CategoriesService,
+        @InjectRepository(Category)
+        private readonly categoriesRepository: Repository<Category>,
     ){}
 
-    async getAll(options: IPaginationOptions):Promise <Pagination<Product>>{
-        return paginate<Product>(this.productsRepository, options,{
-            relations:['category'],
-        });
+    async getAll(options: IPaginationOptions, categoryId?: number):Promise <Pagination<Product>>{
+        return paginate<Product>(this.productsRepository, options, {
+            relations: ['category'],
+            where: {
+              category: categoryId },
+            }
+          );
     }
 
     async findOne(id:number):Promise<Product>{
@@ -29,7 +32,7 @@ export class ProductsService {
     }
     async create(body:CreateProductDto):Promise<Product>{
         const newProduct = this.productsRepository.create(body)
-        const category: Category = await this.categoriesService.findOne(
+        const category: Category = await this.categoriesRepository.findOne(
             body.categoryId,
           );
       
@@ -47,10 +50,12 @@ export class ProductsService {
         this.productsRepository.merge(product, updateProductDTO);
     
         this.productsRepository.save(product);
+
+
     }
 
     async delete(id:number){
-        return await this.productsRepository.delete(id);
+        return await this.productsRepository.softDelete(id);
     }
     
 
